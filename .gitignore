@@ -1,0 +1,53 @@
+# Compiled class files
+*.class
+*.war
+*.jar
+*.ear
+
+# Logs and temp files
+*.log
+/logs
+/tmp
+/out
+
+# IDE specific files
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Maven specific
+target/
+dependency-reduced-pom.xml
+.mvn/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.next
+release.properties
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# Java specific
+*.log
+hs_err_pid*
+replay_pid*
+
+# Spring Boot specific
+*.h2.db
+*.mv.db
+*.db
+.env
+*.bak
+*.old
+
+# Test reports
+surefire-reports/
+failsafe-reports/
+
+# Local environment overrides
+application.properties
+application-local.properties
+application-dev.properties
+.env
