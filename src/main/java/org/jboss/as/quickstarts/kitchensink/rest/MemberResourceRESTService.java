@@ -49,6 +49,8 @@ public class MemberResourceRESTService {
                 throw new ValidationException("Email taken");
             }
             registration.register(member);
+            log.info("Registered user successfully with member id:" + member.getId());
+
             return ResponseEntity.status(HttpStatus.CREATED).body(member); // ideally this should give CREATED(201) status and body as member. Maybe downstream need to change
         } catch (ConstraintViolationException e) {
             return createViolationResponse(e);
@@ -68,6 +70,7 @@ public class MemberResourceRESTService {
         e.getConstraintViolations().forEach(violation -> {
             errors.put(violation.getPropertyPath().toString(), violation.getMessage());
         });
+
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
     }
 

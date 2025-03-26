@@ -1,13 +1,14 @@
 package org.jboss.as.quickstarts.kitchensink.test;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import org.jboss.as.quickstarts.kitchensink.model.Member;
 import org.jboss.as.quickstarts.kitchensink.service.MemberRegistration;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
 import java.util.logging.Logger;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 public class MemberRegistrationIT {
