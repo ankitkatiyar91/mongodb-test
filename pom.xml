@@ -103,6 +103,21 @@
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
         </dependency>
+        <!-- Dependency for mongo test-->
+        <dependency>
+            <groupId>de.flapdoodle.embed</groupId>
+            <artifactId>de.flapdoodle.embed.mongo</artifactId>
+            <version>4.10.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+
+
     </dependencies>
 
     <build>
@@ -115,9 +130,9 @@
                     <includes>
                         <include>**/*IT.java</include>
                     </includes>
-                    <excludes>
-                        <exclude>**/MemberRegistrationIT.java</exclude>
-                    </excludes>
+                    <!--                    <excludes>-->
+                    <!--                        <exclude>**/MemberRegistrationIT.java</exclude>-->
+                    <!--                    </excludes>-->
                 </configuration>
                 <executions>
                     <execution>

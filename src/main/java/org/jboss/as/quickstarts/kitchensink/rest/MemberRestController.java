@@ -5,7 +5,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.ValidationException;
 import org.jboss.as.quickstarts.kitchensink.data.MemberRepository;
 import org.jboss.as.quickstarts.kitchensink.model.Member;
-import org.jboss.as.quickstarts.kitchensink.service.MemberRegistration;
+import org.jboss.as.quickstarts.kitchensink.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,23 +20,24 @@ import java.util.logging.Logger;
 @RestController
 @RequestMapping("/api/members")
 @Validated
-public class MemberResourceRESTService {
+public class MemberRestController {
 
-    private final Logger log = Logger.getLogger(MemberResourceRESTService.class.getName());
+    private final Logger log = Logger.getLogger(MemberRestController.class.getName());
 
     @Autowired
     private MemberRepository repository;
 
     @Autowired
-    private MemberRegistration registration;
+    private MemberService memberService;
 
     @GetMapping
     public ResponseEntity<List<Member>> listAllMembers() {
-        return ResponseEntity.ok(repository.findAllOrderedByName());
+        return ResponseEntity.ok(repository.findAllByOrderByNameAsc());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Member> lookupMemberById(@PathVariable Long id) {
+    public ResponseEntity<Member> lookupMemberById(@PathVariable String id) {
+        // for mongo changing ID to string
         return repository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -45,10 +46,10 @@ public class MemberResourceRESTService {
     @PostMapping
     public ResponseEntity<?> createMember(@Valid @RequestBody Member member) {
         try {
-            if (emailAlreadyExists(member.getEmail())) {
+            if (memberService.emailAlreadyExists(member.getEmail())) {
                 throw new ValidationException("Email taken");
             }
-            registration.register(member);
+            memberService.register(member);
             log.info("Registered user successfully with member id:" + member.getId());
 
             return ResponseEntity.status(HttpStatus.CREATED).body(member); // ideally this should give CREATED(201) status and body as member. Maybe downstream need to change
@@ -74,7 +75,5 @@ public class MemberResourceRESTService {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
     }
 
-    private boolean emailAlreadyExists(String email) {
-        return repository.findByEmail(email).isPresent();
-    }
+
 }

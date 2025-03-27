@@ -1,5 +1,56 @@
-### Expectations
+# Getting Started
 
+### Tech Stack 
+  * Java 21 and above
+  * Spring
+  * MongoDB
+
+## Run on local
+
+* Checkout this code
+* Ensure you have right version of java and maven
+  * Check java version `java --version`
+  * Check maven installation `mvn --version` (ref https://maven.apache.org/install.html)
+* You need to have mongo db running on local or cloud to connect this app
+  * Verify/Update mongo db config in [application.properties](src/main/resources/application.properties) file.
+* Install all dependencies
+  * Run `mvn clean install` at root of this project.
+* Run app
+  * Run `mvn spring-boot:run`
+* Once app starts successfully, you will see message like ` Tomcat started on port 8080 (http) with context path '/'`. You may need to ensure that port `8080` is not used by any other app.
+* Open link http://localhost:8080/. You should see a page similar to below. <img src="home-page-example.png"  alt="Home page image"/>
+
+* You can register new members. It has validations builtin.
+* Similar operations can be done on below rest endpoints of the app
+
+| Endpoint          | Method | Operation           |
+|-------------------|--------|---------------------|
+| /api/members      | GET    | Gets all members    |
+| /api/members      | POST   | Register new member |
+| /api/members/{ID} | GET    | Get member with ID  |
+
+**Example curl**
+
+Get all members
+```shell
+curl --location 'localhost:8080/api/members'
+```
+
+Register new member
+```shell
+curl --location 'localhost:8080/api/members' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "Ankit",
+    "email": "a@c.com",
+    "phoneNumber":"1234567890"
+}'
+```
+
+<hr/>
+Below section describes how the migration is performed.
+
+### Expectations
 Migrate a specific legacy JBoss Java application to a more modern platform according to the following directives:
 
 * The application for you to migrate is the ‘kitchensink’ JBoss application available in the Red Hat JBoss EAP Quickstarts GitHub repository (no need to migrate any of the other applications listed there)
@@ -26,11 +77,31 @@ Migrate a specific legacy JBoss Java application to a more modern platform accor
 
 * Towardtheendofthesession, respondtoanyothermoregeneral interviewquestions youareasked.
 
+### Running existing app
+
+* Checkout source code with sparse checkout.
+* Install Jboss EAP server. Downloaded https://developers.redhat.com/content-gateway/file/jboss-eap-7.4.0-installer.jar&v=zcVpvtVm8nE
+* Follow readme to run and deploy.
+* Use Java 11 for server as it does not work on Java 21.
+
 ### Steps followed to migrate app
 * Source 
 * Moved initial code to git
-* Install `brew install jboss-forge`
-* Found that JBOSS EAP is not available for public download, So moving to migration directly.
+* ~~Install `brew install jboss-forge`~~
+* ~~Found that JBOSS EAP is not available for public download, So moving to migration directly.~~
+* Review the code, identify functionality and endpoints.
 * Install Spring and other dependencies and make tests work. Verifies with `mvn clean install`
 * Ensure local `mvn spring-boot:run`
 * Clean-up 
+* Configure mongo repo and use mongodb
+  * Achieved
+    * `mvn verify` works
+    * Able to create, get all, get by ID using rest APIs
+* Migrated frontend to themleaf templates
+* Made some UI improvements
+
+TODO
+* Run tests in isolation, not on same DB.
+* Cleanup unused code.
+
+

@@ -1,6 +1,7 @@
 package org.jboss.as.quickstarts.kitchensink.data;
 
 import jakarta.annotation.PostConstruct;
+import lombok.Getter;
 import org.jboss.as.quickstarts.kitchensink.model.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
@@ -14,6 +15,7 @@ public class MemberListProducer {
     @Autowired
     private MemberRepository memberRepository;
 
+    @Getter
     private List<Member> members;
 
     @EventListener
@@ -23,10 +25,7 @@ public class MemberListProducer {
 
     @PostConstruct
     public void retrieveAllMembersOrderedByName() {
-        members = memberRepository.findAllOrderedByName();
+        members = memberRepository.findAllByOrderByNameAsc();
     }
 
-    public List<Member> getMembers() {
-        return this.members;
-    }
 }
