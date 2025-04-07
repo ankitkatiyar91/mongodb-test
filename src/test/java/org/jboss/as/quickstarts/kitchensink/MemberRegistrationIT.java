@@ -1,15 +1,17 @@
-package org.jboss.as.quickstarts.kitchensink.test;
+package org.jboss.as.quickstarts.kitchensink;
 
 import org.jboss.as.quickstarts.kitchensink.model.Member;
 import org.jboss.as.quickstarts.kitchensink.service.MemberService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
-@DataMongoTest
+@SpringBootTest
+@ActiveProfiles("test")
 public class MemberRegistrationIT {
 
     @Autowired

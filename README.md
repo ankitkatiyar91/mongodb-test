@@ -90,18 +90,22 @@ Migrate a specific legacy JBoss Java application to a more modern platform accor
 * ~~Install `brew install jboss-forge`~~
 * ~~Found that JBOSS EAP is not available for public download, So moving to migration directly.~~
 * Review the code, identify functionality and endpoints.
+  * Three major parts of app
+    * UI
+    * Rest API
+    * Persistence layer
 * Install Spring and other dependencies and make tests work. Verifies with `mvn clean install`
-* Ensure local `mvn spring-boot:run`
+* Migrate classes to Spring compatible code
+* Ensure local `mvn spring-boot:run` works
 * Clean-up 
 * Configure mongo repo and use mongodb
   * Achieved
     * `mvn verify` works
     * Able to create, get all, get by ID using rest APIs
-* Migrated frontend to themleaf templates
+* Migrated frontend to thymeleaf templates
 * Made some UI improvements
 
 TODO
-* Run tests in isolation, not on same DB.
-* Cleanup unused code.
+* Add more test cases covering validation cases.
 
 

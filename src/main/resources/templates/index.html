@@ -1,8 +1,8 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd" lang="en" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 <head>
     <title>Member Registration</title>
-    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
 </head>
 <body>
 
@@ -40,7 +40,7 @@
     <em>No registered members.</em>
 </div>
 
-<table th:if="${not #lists.isEmpty(members)}" class="table" >
+<table th:if="${not #lists.isEmpty(members)}" class="table">
     <thead>
     <tr>
         <th>Id</th>
@@ -51,12 +51,13 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="member : ${members}" >
+    <tr th:each="member : ${members}">
         <td th:text="${member.id}"></td>
         <td th:text="${member.name}"></td>
         <td th:text="${member.email}"></td>
         <td th:text="${member.phoneNumber}"></td>
-        <td><a th:href="@{/rest/members/{id}(id=${member.id})}" th:text="@{/rest/members/{id}(id=${member.id})}"></a></td>
+        <td><a th:href="@{/api/members/{id}(id=${member.id})}" th:target="_blank"
+               th:text="@{/api/members/{id}(id=${member.id})}"></a></td>
     </tr>
     </tbody>
 </table>
